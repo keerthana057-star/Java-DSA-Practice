@@ -1,0 +1,30 @@
+class Solution {
+    public int[] findMissingAndRepeatedValues(int[][] grid) {
+        int n = grid.length;
+        long N = (long)n*n;
+
+        long sumN = (N*(N+1))/2;
+        long sumSqn = (N*(N+1)*(2*N+1))/6;
+
+        long sum = 0;
+        long sumSq = 0;
+
+        for(int[]row:grid){
+            for(int num:row){
+                sum +=num;
+                sumSq += (long)num*num;
+            }
+        }
+
+        long diff1 = sum-sumN;
+        long diff2 = sumSq-sumSqn;
+
+        long sumXY = diff2/diff1;
+
+        long X = (diff1 + sumXY) / 2; 
+        long Y = X - diff1; 
+
+        return new int[]{(int)X,(int)Y};
+        
+    }
+}
