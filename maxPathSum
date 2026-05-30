@@ -1,0 +1,20 @@
+class Solution {
+    int maxPathSum = Integer.MIN_VALUE;
+    public int maxPathSum(TreeNode root) {
+        dfs(root);
+        return maxPathSum;
+    }
+    private int dfs(TreeNode node){
+        if(node==null) return 0;
+
+        int leftGain = Math.max(0,dfs(node.left));
+        int rightGain = Math.max(0,dfs(node.right));
+
+        int currentSum = node.val+leftGain+rightGain;
+
+        maxPathSum = Math.max(maxPathSum,currentSum);
+
+        return node.val+Math.max(leftGain,rightGain);
+    }
+        
+    }
