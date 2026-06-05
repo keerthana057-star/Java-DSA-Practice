@@ -1,0 +1,39 @@
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+       
+
+        // Step 1: Copy nums2 into the extra space of nums1
+        for (int i = 0; i < n; i++) {
+            nums1[m + i] = nums2[i];
+        }
+        int len = m + n;
+        int gap = nextGap(len);
+
+        // Step 2: Start Gap Method sorting
+        while (gap > 0) {
+            int i = 0;
+            int j = gap;
+
+            // Compare elements gap apart and swap if needed
+            while (j < len) {
+                if (nums1[i] > nums1[j]) {
+                    int temp = nums1[i];
+                    nums1[i] = nums1[j];
+                    nums1[j] = temp;
+                }
+                i++;
+                j++;
+            }
+
+            // Reduce the gap for next iteration
+            gap = nextGap(gap);
+        }
+    }
+
+    // Function to calculate next gap (ceil(gap/2))
+    private int nextGap(int gap) {
+        if (gap <= 1) return 0;
+        return (gap / 2) + (gap % 2);
+        
+    }
+}
