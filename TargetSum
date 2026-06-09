@@ -1,0 +1,31 @@
+class Solution {
+    public int findTargetSumWays(int[] nums, int target) {
+        int n = nums.length;
+        int totalSum = 0;
+        for(int i=0;i<n;i++){
+            totalSum += nums[i];
+        }
+        if ((target+ totalSum) % 2 != 0) return 0;
+        int newTarget = (target + totalSum) / 2;
+        int[]prev= new int[newTarget+1];
+        if (nums[0] == 0) prev[0] = 2; 
+		else prev[0] = 1;
+		if (nums[0] != 0 && nums[0] <= newTarget) prev[nums[0]] = 1;
+        for(int ind=1;ind<n;ind++){
+            int[]curr= new int[newTarget+1];
+            for(int t=0;t<=newTarget;t++){
+                int nonPick = prev[t];
+                int pick = 0;
+                if(nums[ind]<=t){
+            pick = prev[t-nums[ind]];
+        }
+        curr[t]=pick+nonPick;
+        }
+        prev = curr;
+        }
+        return prev[newTarget];
+    }
+}
+        
+    
+    
